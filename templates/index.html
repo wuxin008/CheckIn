@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>签到</title>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+</head>
+<body>
+<h1>该网站用于签到</h1>
+<button>开始发送</button>
+<script>
+    let a = {data: 'hello', 'abc': 'bca'}
+    $('button').click(function() {
+        $.ajax({
+            url: 'api/test1',
+            method: 'post',
+            data: a,
+            success: function(response) {
+                console.log(response)
+            }
+        })
+    })
+</script>
+</body>
+</html>
