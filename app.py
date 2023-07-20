@@ -6,14 +6,16 @@ import json
 
 app = Flask(__name__)
 
-email = Mail('smtp.163.com', 'xl20210613@163.com', 'YLCYZGMGFZBTLTWH', 'xl20210613@163.com', ['xl20210613@163.com'])
 
 def sendEmail():
+    print('start to send')
+    email = Mail('smtp.163.com', 'xl20210613@163.com', 'YLCYZGMGFZBTLTWH', 'xl20210613@163.com', ['xl20210613@163.com'])
     cnt = 0
     while cnt < 5:
         cnt += 1
         email.send('This is a test Email', 'lalala')
         time.sleep(10)
+        print('has sended')
 
 @app.route('/')
 def hello_world():
@@ -23,8 +25,11 @@ def hello_world():
 def api(args):
     if request.method == 'POST':
         data = request.form.to_dict()
-        print(data)
-        return json.dumps(data)
+
+        if args == 'sendEmail':
+            _thread.start_new_thread(sendEmail, ())
+
+        return json.dumps('yes')
     elif request.method == 'GET':
         return redirect('error')
 
