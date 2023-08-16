@@ -7,12 +7,13 @@
 </head>
 <body>
 <h1>该网站用于签到</h1>
-<button>开始发送</button>
+<button id="SendEmail">开始发送</button>
+<button id="checkin_self">自身签到</button>
 <script>
     let a = {data: 'hello', 'abc': 'bca'}
-    $('button').click(function() {
+    $('#SendEmail').click(function() {
         $.ajax({
-            url: 'api/sendEmail',
+            url: 'api/SendEmail',
             method: 'post',
             data: a,
             success: function(response) {
@@ -20,6 +21,15 @@
             }
         })
     })
+    $('#checkin_self').click(function() {
+        $.ajax({
+            url: 'api/CheckInSelf',
+            method: 'post',
+            success: function(response) {
+                console.log(response)
+            }
+        });
+    });
 </script>
 </body>
 </html>

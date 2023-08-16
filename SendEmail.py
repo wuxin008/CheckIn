@@ -31,3 +31,7 @@ class Mail(object):
             print('success')
         except smtplib.SMTPException as e:
             print('error', e)  # 打印错误
+
+if __name__ == '__main__':
+    Email = Mail('smtp.163.com', 'xl20210613@163.com', 'YLCYZGMGFZBTLTWH', 'xl20210613@163.com', ['xl20210613@163.com'])
+    Email.send('Self-CheckIn', '')

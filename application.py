@@ -3,17 +3,17 @@ import _thread
 import time
 from SendEmail import Mail
 import json
+import checkin_self
 
 app = Flask(__name__)
-
+Email = Mail('smtp.163.com', 'xl20210613@163.com', 'YLCYZGMGFZBTLTWH', 'xl20210613@163.com', ['xl20210613@163.com'])
 
 def sendEmail():
     print('start to send')
-    email = Mail('smtp.163.com', 'xl20210613@163.com', 'YLCYZGMGFZBTLTWH', 'xl20210613@163.com', ['xl20210613@163.com'])
     cnt = 0
     while cnt < 5:
         cnt += 1
-        email.send('This is a test Email', 'lalala')
+        Email.send('This is a test Email', 'lalala')
         time.sleep(10)
         print('has sended')
 
@@ -26,11 +26,15 @@ def api(args):
     if request.method == 'POST':
         data = request.form.to_dict()
 
-        if args == 'sendEmail':
+        if args == 'SendEmail':
             _thread.start_new_thread(sendEmail, ())
+        if args == 'CheckInSelf':
+            cookies = checkin_self.getCookies()
+            return json.dumps(checkin_self.checkin(cookies))
 
-        return json.dumps('yes')
+        return json.dumps('button has been clicked.')
     elif request.method == 'GET':
         return redirect('error')
 
-app.run(debug=True)
+if __name__ == "__main__":
+    app.run(debug=True)
